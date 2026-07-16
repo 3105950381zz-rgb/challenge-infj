@@ -74,8 +74,8 @@ body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:#1a1218;c
 .go-title{font-size:18px;font-weight:800;color:#e94560;margin-bottom:2px}
 .go-sub{font-size:11px;color:rgba(240,236,228,.6);margin-bottom:8px}
 .go-desc{font-size:12px;color:rgba(240,236,228,.7);line-height:1.5;padding:7px 10px;background:rgba(233,69,96,.04);border-radius:8px;margin-bottom:6px;border-left:2px solid #e94560}
-.go-qr{width:72px;height:72px;border-radius:6px;overflow:hidden;margin:4px auto 0}
-.go-qr img{width:100%;height:100%;object-fit:cover;display:block;border-radius:6px}
+.go-qr{width:80px;height:80px;border-radius:6px;overflow:hidden;margin:4px auto 0}
+.go-qr img{width:100%;height:100%;object-fit:cover;display:block;border-radius:6px;transform:scale(1.15)}
 .go-brand{font-size:9px;color:rgba(240,236,228,.5);letter-spacing:1px;margin-bottom:2px}
 
 /* ===== WIN ===== */
@@ -83,8 +83,8 @@ body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:#1a1218;c
 .win-icon{font-size:44px;margin-bottom:4px;display:block}
 .win-title{font-size:18px;font-weight:800;margin-bottom:2px}
 .win-desc{font-size:12px;color:rgba(240,236,228,.4);line-height:1.8;padding:16px;background:rgba(236,72,153,.04);border-radius:12px;margin-bottom:16px;border-left:2px solid #ec4899}
-.win-qr{width:72px;height:72px;border-radius:6px;overflow:hidden;margin:4px auto 0}
-.win-qr img{width:100%;height:100%;object-fit:cover;display:block;border-radius:6px}
+.win-qr{width:80px;height:80px;border-radius:6px;overflow:hidden;margin:4px auto 0}
+.win-qr img{width:100%;height:100%;object-fit:cover;display:block;border-radius:6px;transform:scale(1.15)}
 .win-brand{font-size:9px;color:rgba(240,236,228,.5);letter-spacing:1px;margin-bottom:2px}
 
 /* BRAND */
@@ -130,6 +130,34 @@ const DATA={
   color:'#ec4899',qrSrc:'qrcode.jpg',
   winDesc:'你看见了INFJ藏在细节里的心。你注意到了TA的沉默、TA的付出、TA那些没说出口的需要。不是因为你多会说话，而是因为你是真的用心在看TA。',difficulty:'★★★★☆',diffLabel:'深度型 · 需要真正的理解',dist:[100,95,89,81,71,60,48,37,26,17,10,5,1.5]};
 
+// ===== URL param detection for shared results =====
+(function(){
+  var m=window.location.href.match(/[?&]s=(\d+)-([\d.]+)/);
+  if(!m)return;
+  var lvl=parseInt(m[1]),pct=parseFloat(m[2]);
+  var A=document.getElementById("app");
+  A.innerHTML=`<div style="text-align:center;padding:20px 0">
+    <div style="background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:28px 20px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:-60px;right:-60px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(254,202,87,.1),transparent 70%)"></div>
+      <div style="font-size:48px;margin-bottom:6px">${DATA.emoji}</div>
+      <div style="font-size:20px;font-weight:800;letter-spacing:1px">闯关成绩</div>
+      <div style="font-size:11px;color:rgba(240,236,228,.35);margin:4px 0 16px">${DATA.subtitle}</div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:20px;margin:0 0 12px;padding:16px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:14px">
+        <div><div style="font-size:48px;font-weight:800;background:linear-gradient(135deg,#feca57,#ff9ff3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1">${lvl}</div><div style="font-size:10px;color:rgba(240,236,228,.25)">第 ${lvl} / 12 关</div></div>
+        <div style="width:1px;height:44px;background:rgba(255,255,255,.05)"></div>
+        <div><div style="font-size:38px;font-weight:800;background:linear-gradient(135deg,#feca57,#ff9ff3);-webkit-background-clip:text;-webkit-text-fill-color:transparent">${pct}%</div><div style="font-size:10px;color:rgba(240,236,228,.25)">超过的挑战者</div></div>
+      </div>
+      <div style="margin:0 0 12px"><div style="height:4px;border-radius:2px;background:rgba(255,255,255,.05);overflow:hidden"><div style="height:100%;width:${lvl/12*100}%;border-radius:2px;background:linear-gradient(90deg,#feca57,#ff9ff3)"></div></div></div>
+      <div style="padding:10px 12px;border-radius:8px;border-left:3px solid #feca57;background:rgba(254,202,87,.03);font-size:11px;color:rgba(240,236,228,.45);line-height:1.6;margin-bottom:16px;text-align:left">${DATA.desc}</div>
+      <button class="btn btn-primary" onclick="go()">▶ 我也来挑战</button>
+      <div style="height:6px"></div>
+      <button class="btn btn-second" onclick="shareLink()">📤 分享给好友</button>
+    </div>
+    <div style="width:72px;height:72px;margin:14px auto 6px;border-radius:6px;overflow:hidden"><img src="${DATA.qrSrc}" style="width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.15)"></div>
+    <div style="font-size:8px;color:rgba(240,236,228,.12);letter-spacing:1px">扫码咨询 · 同款网站制作</div>
+  </div>`;
+})();
+
 const STAGES=[{scene:"一整个下午不说话问什么都沉默",line:"没什么。",options:["我知道你有心事我会一直陪着你你想说的时候我在","你倒是说话啊到底怎么了急死我了","那我走了你自己待着吧","你不说我也知道你不开心我在这里不吵你"],safe:1,death:"你说没事从此那没事成了墙"},{scene:"TA在看心理学书你想问不敢问",line:"你不用管我。",options:["你最近压力是不是很大跟我说说","别看这些书了越看越乱","好我不问了但我在旁边陪你好不好","我去给你买你喜欢的书我们一起看"],safe:3,death:"你想问没问然后发现你真不懂TA"},{scene:"TA先发现你不开心但自己的不开心收起来了",line:"你开心就好。",options:["我开心但你看起来不开心你也要开心啊","谢谢你总是先想到我","我没事的 你呢你还好吗","你总是先照顾我的感受那你自己的不开心呢"],safe:4,death:"你说那你呢TA说你开心就好被击中"},{scene:"TA好久没写小作文了心里话给了日记本",line:"我知道了。",options:["你最近都不跟我说心里话了是我哪里不好吗","你把日记给我看看我想知道你写了什么","我也想跟你说说心里话你愿意听吗","你以前不是这样的现在什么都不告诉我了"],safe:3,death:"你说写那有什么用TA说没用了从那天起"},{scene:"你说了伤人的话TA没生气但被收进心里了",line:"没关系。",options:["有关系我知道你难过了对不起我真的不是故意的","哦没关系就好翻篇了","你如果真的生气了要告诉我不要憋着我担心","我请你吃你最爱的赔罪你原谅我好不好"],safe:4,death:"你逃过那瞬间但剑三天后到了"},{scene:"你问爱我吗TA点头少了热烈",line:"嗯。",options:["看着我的眼睛说你爱我好不好我想听","嗯是什么意思不爱了吗","我不问了我相信你爱你但你最近真的不太一样","你变了我能感觉到你告诉我发生了什么"],safe:3,death:"点头后来真的只是点头了"},{scene:"TA开始一个人散步晚回来说想清楚",line:"早点休息。",options:["你在想什么可以告诉我吗我们一起想","好那你想清楚了我等你答案","你一个人散步怎么不叫我一起我陪你","我煮了粥回来喝一点吧暖暖身子"],safe:1,death:"你说早点回TA回来你已不认识"},{scene:"你发现TA在听你们刚认识时的歌",line:"我没事。",options:["你在怀念我们刚认识的时候吗我也是","你是不是想回到过去我也是","那时候真好我也想那时候了","我们现在也可以像那时候一样好你信吗"],safe:1,death:"你说对那时候好TA说对只能怀念了"},{scene:"TA不再纠正你了你说什么都对",line:"你说的对。",options:["你是不是不在乎我了连纠正都不纠正了","那当然我说的当然对","你以前会纠正我的现在怎么了我想听你真话","好那我错了我重新说你说得不对"],safe:3,death:"嗯有道理你于是没道理了"},{scene:"TA把你备注改全名了问为什么说顺手",line:"我先去忙了。",options:["你把备注改回来好不好我喜欢你以前给我的备注","你是不是在生我的气你告诉我","好你去忙吧我不打扰你了","我给你备注改成宝贝你把我的也改回原来的好不好"],safe:1,death:"备注而已你最后真的被而已了"},{scene:"TA买了你想要的东西比任何时候都温柔",line:"这个送你。",options:["你为什么突然对我这么好你是不是要走了","谢谢你我正好想要这个","你想要什么我也给你买你不要这样我害怕","你和平常不一样你在跟我告别对吗"],safe:3,death:"你收了礼忘了没资格了"},{scene:"你看到TA的表情那个表情说已经决定了",line:"再见。",options:["不要走我们再谈最后一次我把心里话都说出来","好祝福你值得更好的","我不让你走你有什么决定我们都可以一起面对","我做错了什么你告诉我我全部改你不要走"],safe:1,death:"你看懂时已经来不及了"}];
 
 let cur=0,over=false;
@@ -168,7 +196,7 @@ function hm(){
     ${pbHTML()}
     <button class="btn btn-primary" onclick="go()">▶ 开始挑战</button>
     <div style="height:6px"></div>
-    <button class="btn btn-primary" onclick="share()" style="font-size:12px">📤 分享给朋友</button>
+    <button class="btn btn-primary" onclick="shareLink()" style="font-size:12px">📤 分享给朋友</button>
     <div class="brand" style="margin-top:20px">
       <img src="${DATA.qrSrc}" alt="qr"/>
       <div>
@@ -222,50 +250,40 @@ function pk(i){
 function end(){
   if(over){
     const lvl=Math.min(cur+1,STAGES.length);
-
     const s=STAGES[Math.min(cur,STAGES.length-1)];
     return `<div class="go-screen fi" id="capArea">
-      <span class="go-icon">💀</span>
-      <div class="go-title">挽回失败</div>
-      <div class="go-sub">你在第${Math.min(cur+1,STAGES.length)}关说错了话</div>
-      ${statsHTML(lvl)}
-      <div class="go-desc">${s.death}</div>
-<button class="btn btn-danger" onclick="go()">🔄 再试一次</button>
-      <div style="height:6px"></div>
-      <button class="btn btn-primary" onclick="shareLink()">📤 分享给好友</button>
-      <div style="font-size:10px;color:rgba(240,236,228,.35);text-align:center;margin-top:6px;letter-spacing:.5px;line-height:1.7">📱 截屏保存 · 或点右上角 <span style="border:1px solid rgba(240,236,228,.2);border-radius:3px;padding:0 5px;font-size:8px">···</span> 转发</div>
-<div class="go-qr"><img src="${DATA.qrSrc}" alt="扫码"/></div>
-      
+      <div style="background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:24px 20px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:-60px;right:-60px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(233,69,96,.12),transparent 70%)"></div>
+        <div style="font-size:44px;margin-bottom:6px">💀</div>
+        <div style="font-size:22px;font-weight:800;color:#e94560;letter-spacing:1px">挽回失败</div>
+        <div style="font-size:11px;color:rgba(240,236,228,.45);margin:4px 0 12px">你在第 ${lvl} / 12 关说错了话</div>
+        ${statsHTML(lvl)}
+        <div style="padding:10px 12px;border-radius:8px;border-left:3px solid #e94560;background:rgba(233,69,96,.04);font-size:12px;color:rgba(240,236,228,.65);line-height:1.5;margin-bottom:12px">${s.death}</div>
+        <button class="btn btn-danger" onclick="go()">🔄 再试一次</button>
+        <div style="height:6px"></div>
+        <button class="btn btn-primary" onclick="shareLink()">📤 分享成绩</button>
+        <div style="font-size:10px;color:rgba(240,236,228,.2);text-align:center;margin-top:5px;letter-spacing:.5px">📱 截屏 · 或点右上角 ··· 转发</div>
+      </div>
+      <div class="go-qr"><img src="${DATA.qrSrc}" alt="扫码"/></div>
       <div class="go-brand">灵客星球</div></div>`;
   }
-    sv(DATA.title,STAGES.length,true);
+  sv(DATA.title,STAGES.length,true);
   return `<div class="win-screen fi" id="capArea">
-    <span class="win-icon">🎉</span>
-    <div class="win-title">恭喜通关！</div>
-    <div style="font-size:11px;color:rgba(240,236,228,.6);margin:2px 0 8px">你成功挽回了${DATA.title}的心</div>
-    ${statsHTML(STAGES.length)}
-    <div class="win-desc">${DATA.winDesc}</div>
-    <button class="btn btn-primary" onclick="shareLink()">📤 分享给好友</button>
-      <div style="font-size:10px;color:rgba(240,236,228,.35);text-align:center;margin-top:6px;letter-spacing:.5px;line-height:1.7">📱 截屏保存 · 或点右上角 <span style="border:1px solid rgba(240,236,228,.2);border-radius:3px;padding:0 5px;font-size:8px">···</span> 转发</div>
-    <div style="height:6px"></div>
-    <button class="btn btn-second" onclick="go()">🔄 再测一次</button>
+    <div style="background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:24px 20px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:-60px;right:-60px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(254,202,87,.12),transparent 70%)"></div>
+      <div style="font-size:44px;margin-bottom:6px">🎉</div>
+      <div style="font-size:22px;font-weight:800;color:#feca57;letter-spacing:1px">恭喜通关！</div>
+      <div style="font-size:11px;color:rgba(240,236,228,.45);margin:4px 0 12px">你成功挽回了${DATA.title}的心</div>
+      ${statsHTML(STAGES.length)}
+      <div style="padding:10px 12px;border-radius:8px;border-left:3px solid #feca57;background:rgba(254,202,87,.04);font-size:12px;color:rgba(240,236,228,.65);line-height:1.5;margin-bottom:12px">${DATA.winDesc}</div>
+      <button class="btn btn-primary" onclick="shareLink()">📤 分享成绩</button>
+      <div style="height:6px"></div>
+      <button class="btn btn-second" onclick="go()">🔄 再测一次</button>
+      <div style="font-size:10px;color:rgba(240,236,228,.2);text-align:center;margin-top:5px;letter-spacing:.5px">📱 截屏 · 或点右上角 ··· 转发</div>
+    </div>
     <div class="win-qr"><img src="${DATA.qrSrc}" alt="扫码"/></div>
-    
     <div class="win-brand">灵客星球</div></div>`;
-}
-
-
-
-function share(){
-  const txt='我正在挑战【挽回'+DATA.title+'】！你能闯到第几关？来试试吧 👇 '+window.location.href;
-  const e=document.createElement('textarea');
-  e.value=txt;e.style.position='fixed';e.style.opacity='0';
-  document.body.appendChild(e);e.select();
-  try{document.execCommand('copy')}catch(e){}
-  document.body.removeChild(e);
-  st('✅ 已复制，快去转发给好友吧');
-}
-function st(m){
+}function st(m){
   const t=document.getElementById('toast');
   if(!t)return;
   t.textContent=m;t.classList.add('show');
@@ -273,13 +291,26 @@ function st(m){
 }
 
 function shareLink(){
-  var e=document.createElement('textarea');
-  e.value='我正在挑战【挽回'+DATA.title+'】来试试你能闯到第几关 👇 '+window.location.href;
-  e.style.position='fixed';e.style.opacity='0';
-  document.body.appendChild(e);e.select();
-  try{document.execCommand('copy')}catch(e){}
-  document.body.removeChild(e);
-  st('✅ 已复制，去转发给好友吧');
+  var url=window.location.href.split('?')[0];
+  var lvl=0,pct=0;
+  if(typeof over!=='undefined'&&over&&typeof cur!=='undefined'){
+    lvl=Math.min(cur+1,STAGES.length);
+    pct=Math.round((100-(DATA.dist[Math.min(Math.max(lvl-1,0),DATA.dist.length-1)]||0))*10)/10;
+    url+='?s='+lvl+'-'+pct;
+  }
+  var txt='我在【挽回'+DATA.title+'挑战】';
+  if(lvl>0)txt+='闯到了第'+lvl+'关！超过'+pct+'%的人！';
+  txt+='你也来试试 👇';
+  if(navigator.share){
+    navigator.share({title:'挽回'+DATA.title+'挑战',text:txt,url:url}).catch(function(){});
+  }else{
+    var e=document.createElement('textarea');
+    e.value=txt+' '+url;e.style.position='fixed';e.style.opacity='0';
+    document.body.appendChild(e);e.select();
+    try{document.execCommand('copy')}catch(e){}
+    document.body.removeChild(e);
+    st('✅ 已复制，去转发给好友吧');
+  }
 }
 
 hm();
