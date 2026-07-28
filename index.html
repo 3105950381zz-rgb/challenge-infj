@@ -139,8 +139,13 @@ body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:#1a1218;c
 const DATA={
   emoji:'🦋',title:'INFJ',subtitle:'深度洞察的理想主义者',
   desc:'INFJ 收集了你所有的细节。你忽略的每一次、敷衍的每一句，TA都记在心里。不说不是因为没事，是因为还没到彻底失望的时候。',
+<<<<<<< HEAD
   color:'#ec4899',qrSrc:'qrcode.jpg',
 	  wxSrc:'wechat.jpg',
+=======
+  color:'#ec4899',qrSrc:'wechat.jpg',
+	  wxSrc:wechat.jpg,
+>>>>>>> 190c7d9 (fix: replace jump QR code with WeChat QR on end pages)
   winDesc:'你看见了INFJ藏在细节里的心。你注意到了TA的沉默、TA的付出、TA那些没说出口的需要。不是因为你多会说话，而是因为你是真的用心在看TA。',difficulty:'★★★★☆',diffLabel:'深度型 · 需要真正的理解',dist:[100,95,89,81,71,60,48,37,26,17,10,5,1.5]};
 
 // ===== URL param detection for shared results =====
@@ -167,8 +172,7 @@ const DATA={
       <button class="btn btn-second" onclick="shareLink()">📤 分享给好友</button>
     </div>
     <div style="display:flex;gap:16px;justify-content:center;margin:14px auto 4px">
-	      <div><div style="width:60px;height:60px;border-radius:6px;overflow:hidden;margin:0 auto"><img src="${DATA.qrSrc}" style="width:100%;height:100%;object-fit:cover;display:block"></div><div style="font-size:8px;color:rgba(240,236,228,.12);margin-top:2px">扫码测试</div></div>
-	      <div><div style="width:60px;height:60px;border-radius:6px;overflow:hidden;margin:0 auto"><img src="${DATA.wxSrc}" style="width:100%;height:100%;object-fit:cover;display:block"></div><div style="font-size:8px;color:rgba(240,236,228,.12);margin-top:2px">加微信</div></div>
+	      	      <div><div style="width:60px;height:60px;border-radius:6px;overflow:hidden;margin:0 auto"><img src="${DATA.wxSrc}" style="width:100%;height:100%;object-fit:cover;display:block"></div><div style="font-size:8px;color:rgba(240,236,228,.12);margin-top:2px">加微信</div></div>
 	    </div>
     <div style="font-size:8px;color:rgba(240,236,228,.12);letter-spacing:1px">扫码咨询 · 同款网站制作</div>
   </div>`;
@@ -215,7 +219,6 @@ function hm(){
     <button class="btn btn-primary" onclick="shareLink()" style="font-size:12px">📤 分享给朋友</button>
     <div class="brand" style="margin-top:20px">
       <div style="display:flex;gap:8px;flex-shrink:0">
-	        <div class="brand-qr"><img src="${DATA.qrSrc}"/></div>
 	        <div class="brand-qr"><img src="${DATA.wxSrc}"/></div>
 	      </div>
       <div>
